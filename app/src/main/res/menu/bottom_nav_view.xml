@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/gridViewOP"
+        android:icon="@drawable/baseline_grid_on_24"
+        android:title="gridViewOP"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/listViewOp"
+        android:icon="@drawable/baseline_view_list_24"
+        android:title="listViewOp"
+        app:showAsAction="ifRoom" />
+</menu>
