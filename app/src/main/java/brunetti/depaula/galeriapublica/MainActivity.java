@@ -23,6 +23,8 @@ import com.google.android.material.navigation.NavigationBarView;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.Manifest;
+
 public class MainActivity extends AppCompatActivity {
     static int RESULT_REQUEST_PERMISSION = 2;
     BottomNavigationView bottomNavigationView;
