@@ -2,7 +2,16 @@ package brunetti.depaula.galeriapublica;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.paging.PagingData;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +33,8 @@ public class GridViewFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private MainViewModel mViewModel;
+    private View view;
     public GridViewFragment() {
         // Required empty public constructor
     }
@@ -31,18 +42,12 @@ public class GridViewFragment extends Fragment {
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     *.
      * @return A new instance of fragment GridViewFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static GridViewFragment newInstance(String param1, String param2) {
+    public static GridViewFragment newInstance() {
         GridViewFragment fragment = new GridViewFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -60,5 +65,24 @@ public class GridViewFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_grid_view, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstaceState){
+        super.onViewCreated(view, savedInstaceState);
+        mViewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
+        GridAdapter gridAdapter = new GridAdapter(new ImageDataComparator());
+        LiveData<PagingData<ImageData>> liveData = mViewModel.getPageLv();
+        liveData.observe(getViewLifecycleOwner(), new Observer<PagingData<ImageData>>() {
+            @Override
+            public void onChanged(PagingData<ImageData> objectPagingData) {
+                gridAdapter.submitData(getViewLifecycleOwner().getLifecycle(), objectPagingData);
+            }
+        });
+        int w = 100dp;
+        int numberofColumns = Util.calculateNoOfColumns(MainActivity.this, w);
+        RecyclerView rvGallery = (RecyclerView) view.findViewById(R.id.rvGridView);
+        rvGallery.setAdapter(gridAdapter);
+        rvGallery.setLayoutManager(new GridLayoutManager(getContext(), 3));
     }
 }

@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                         setFragment(gridViewFragment);
                         break;
                     case R.id.listViewOp:
-                        ListViewFragment listViewFragment = ListViewFragment.newInstace();
+                        ListViewFragment listViewFragment = ListViewFragment.newInstance();
                         setFragment(listViewFragment);
                         break;
                 }
