@@ -42,7 +42,7 @@ public class GalleryPagingSource extends ListenableFuturePagingSource<Integer, I
             offSet = initialLoadSize;
         }
         else{
-            offSet = ((nextPageNumber - 1) * loadParams.getLoadSize() + initialLoadSize) + (initialLoadSize - loadParams.getLoadSize());
+            offSet = ((nextPageNumber - 1) * loadParams.getLoadSize()) + (initialLoadSize - loadParams.getLoadSize());
         }
         ListeningExecutorService service = MoreExecutors.listeningDecorator(Executors.newSingleThreadExecutor());
 

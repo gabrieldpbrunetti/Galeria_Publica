@@ -79,10 +79,10 @@ public class GridViewFragment extends Fragment {
                 gridAdapter.submitData(getViewLifecycleOwner().getLifecycle(), objectPagingData);
             }
         });
-        int w = 100dp;
-        int numberofColumns = Util.calculateNoOfColumns(MainActivity.this, w);
+        float w = getResources().getDimension(R.dimen.im_width);
+        int numberOfColumns = Util.calculateNoOfColumns(getContext(), w);
         RecyclerView rvGallery = (RecyclerView) view.findViewById(R.id.rvGridView);
         rvGallery.setAdapter(gridAdapter);
-        rvGallery.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        rvGallery.setLayoutManager(new GridLayoutManager(getContext(), numberOfColumns));
     }
 }
